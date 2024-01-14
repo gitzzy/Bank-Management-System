@@ -4,9 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import java.awt.*;
-import java.awt.Image.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,7 +27,7 @@ class Login{
         JLabel txt1 = new JLabel("Welcome");
         JLabel txt2 = new JLabel("To");
         txt1.setFont(new Font("Montserrat", Font.BOLD, 40));
-        txt2.setFont(new Font("TMontserrat", Font.BOLD, 36));
+        txt2.setFont(new Font("Montserrat", Font.BOLD, 36));
         txt1.setForeground(Color.red);
         txt2.setForeground(Color.BLACK);
         
@@ -47,23 +45,27 @@ class Login{
 
           // Fonts
           Font f1 = new Font("Times New Roman", Font.BOLD,26 );
-
+          Font f2 = new Font("Arial", Font.PLAIN ,18);
           // Account Number
-        JLabel accLabel = new JLabel("Account Number : ");
+        JLabel accLabel = new JLabel("Account Number ");
         JTextField accField = new JTextField();
         accField.setBounds(470,300,300,50);
         accLabel.setBounds(250,300,300,50);
         accLabel.setFont(f1);
+        accField.setFont(f2);
+        accField.setForeground(Color.red);
         frm.add(accLabel);
         frm.add(accField);
 
         // Account Pin
 
-        JLabel pinLabel = new JLabel("Account Pin         : ");
+        JLabel pinLabel = new JLabel("Account Pin ");
         JPasswordField pinPass = new JPasswordField();
         pinLabel.setBounds(250,350,300,50);
         pinPass.setBounds(470,350,300,50);
         pinLabel.setFont(f1);
+        pinPass.setFont(f2);
+        pinPass.setForeground(Color.red);
         frm.add(pinPass);
         frm.add(pinLabel);
 
