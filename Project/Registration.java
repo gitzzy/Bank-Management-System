@@ -3,6 +3,10 @@ package Project;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Random;
@@ -212,70 +216,83 @@ public class Registration {
         JButton mainReg = new JButton(regImg);
         p2.add(mainReg);
         mainReg.setBounds(50, 450, 250, 60);
-        mainReg.addActionListener(e -> {
-            if (tf1.getText().equals("")) {
+
+         mainReg.addActionListener(e -> {
+            // Get data from fields
+            String firstName = tf1.getText();
+            String lastName = tf2.getText();
+            String dob1 = ((JTextField)cal.getDateEditor().getUiComponent()).getText();
+            String phone = tf4.getText();
+            String income = tf5.getText();
+            String email = maField.getText();
+            String assets = assField.getText();
+            String occupation = (String) occBox.getSelectedItem();
+            String accNumber = accField.getText();
+            String pin = pinField.getText();
+
+            if (firstName.equals("")) {
                 JOptionPane.showMessageDialog(null, "Name Field Cannot be empty!!");
                 cards.next(cardPanel);
-            } else if (tf2.getText().equals("")) {
+            } else if (lastName.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please Enter Your Last Name!!");
                 cards.next(cardPanel);
-            } else if (((JTextField) cal.getDateEditor().getUiComponent()).getText().equals("")) {
+            } else if (dob1.equals("")) {
                 JOptionPane.showMessageDialog(null, "Date of Birth Cannot be empty!!");
                 cards.next(cardPanel);
-            } else if (tf4.getText().equals("")) {
+            } else if (phone.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter your Phone Number!");
                 cards.next(cardPanel);
-            } else if (tf5.getText().equals("")) {
+            } else if (income.equals("")) {
                 JOptionPane.showMessageDialog(null, "Enter Your Annual Income!!");
                 cards.next(cardPanel);
-            } else if (maField.getText().equals("")) {
+            } else if (email.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter you mail!!");
-            } else if (assField.getText().equals("")) {
+            } else if (assets.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter your total assets!!");
-            } else if (accField.getText().equals("")) {
+            } else if (accNumber.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please Enter your Account Number!!");
-            } else if (pinField.getText().equals("")) {
+            } else if (pin.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please Setup your Pin!! ");
-            } else {
-                try {
-                    // String q1 = "INSERT INTO protb1 (fname, name, birth, phone, income, mail, assests, occ, acc, pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                   
-                    DataBase obj = new DataBase();
-                    // PreparedStatement pstmt = obj.con.prepareStatement(q1);
-                    // pstmt.setString(1, tf1.getText());
-                    // pstmt.setString(2, tf2.getText());
-                    // pstmt.setString(3, ((JTextField) cal.getDateEditor().getUiComponent()).getText());
-                    // pstmt.setString(4, tf4.getText());
-                    // pstmt.setString(5, tf5.getText());
-                    // pstmt.setString(6, maField.getText());
-                    // pstmt.setString(7, assField.getText());
-                    // pstmt.setString(8, (String) occBox.getSelectedItem());
-                    // pstmt.setString(9, accField.getText());
-                    // pstmt.setString(10, pinField.getText());
-                    // pstmt.executeUpdate(q1);
+            }else {
+            try {
+                // JDBC connection
+                DataBase obj = new DataBase();
 
-                    String s1 = tf1.getText();
-                    String s2 = tf2.getText();
-                    String s3 = ((JTextField) cal.getDateEditor().getUiComponent()).getText();
-                    String s4 = tf4.getText();
-                    String s5 = tf5.getText();
-                    String s6 = maField.getText();
-                    String s7 = assField.getText();
-                    String s8 = (String) occBox.getSelectedItem();
-                    String s9 = accField.getText();
-                    String s10 = pinField.getText();
-                    String q1 = "INSERT INTO protb1('"+s1+"','"+s2+"','"+s3+"','"+s4+"','"+s5+"','"+s6+"','"+s7+"','"+s8+"','"+s9+"','"+s10+"')";
-                    obj.st.executeUpdate(q1);
+                // SQL query to insert data
+                String insertQuery = "INSERT INTO protb1 (fname, name, birth, phone, income, mail, assests, occ, acc, pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+                // Creating PreparedStatement
+                PreparedStatement preparedStatement = obj.con.prepareStatement(insertQuery);
+                
+                // Setting parameters4
+                preparedStatement.setString(1, firstName);       
+                preparedStatement.setString(2, lastName);         
+                preparedStatement.setString(3, dob1);              
+                preparedStatement.setString(4, phone);           
+                preparedStatement.setString(5, income);          
+                preparedStatement.setString(6, email);           
+                preparedStatement.setString(7, assets);           
+                preparedStatement.setString(8, occupation);       
+                preparedStatement.setString(9, accNumber);       
+                preparedStatement.setString(10, pin);
 
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                // Execute the query
+                preparedStatement.executeUpdate();
+
+                // Close the connection
+                obj.con.close();
+
+                // Show success message
+                JOptionPane.showMessageDialog(null, "Registration successful");
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                // Handle database errors
+                JOptionPane.showMessageDialog(null, "Error while saving data to the database");
             }
-            // Way to get Callendar Text
-            // String data = ((JTextField) cal.getDateEditor().getUiComponent()).getText();
-
+        }
         });
+
 
         bckButton.addActionListener(e -> {
             cards.next(cardPanel);
