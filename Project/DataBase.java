@@ -10,7 +10,7 @@ public class DataBase {
             Class.forName("com.mysql.cj.jdbc.Driver");
             //Windows Port is 3306
             //Mac port is 3308
-            String url = "jdbc:mysql://localhost:3306/prodb";
+            String url = "jdbc:mysql://localhost:3308/ProDB";
             String usr = "root";
             String pass = "";
             con = DriverManager.getConnection(url,usr , pass);
