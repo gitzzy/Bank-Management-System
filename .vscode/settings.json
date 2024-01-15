@@ -1,6 +1,6 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "Jar Files/jcalendar-1.4.jar"
+        "Jar Files/**/*.jar"
     ]
 }

@@ -1,9 +1,11 @@
+package Project;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,6 +79,8 @@ class Login{
         loginBtn.setForeground(Color.green);
         // loginBtn.setOpaque(true);
 
+    
+
         //Clear Button
 
         JButton clearBtn = new JButton("Clear");
@@ -98,6 +102,11 @@ class Login{
         regBtn.setBounds(470,460,300,50);
         regBtn.setForeground(Color.black);
         frm.add(regBtn);
+
+        regBtn.addActionListener(e ->{
+            frm.dispose();
+            Registration.main(args);
+        });
 
         frm.setVisible(true);
     }
