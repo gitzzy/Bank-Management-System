@@ -216,21 +216,8 @@ public class Registration {
         JButton mainReg = new JButton(regImg);
         p2.add(mainReg);
         mainReg.setBounds(50, 450, 250, 60);
-
-         mainReg.addActionListener(e -> {
-            // Get data from fields
-            String firstName = tf1.getText();
-            String lastName = tf2.getText();
-            String dob1 = ((JTextField)cal.getDateEditor().getUiComponent()).getText();
-            String phone = tf4.getText();
-            String income = tf5.getText();
-            String email = maField.getText();
-            String assets = assField.getText();
-            String occupation = (String) occBox.getSelectedItem();
-            String accNumber = accField.getText();
-            String pin = pinField.getText();
-
-            if (firstName.equals("")) {
+        mainReg.addActionListener(e -> {
+            if (tf1.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Name Field Cannot be empty!!");
                 cards.next(cardPanel);
             } else if (lastName.equals("")) {
@@ -253,42 +240,41 @@ public class Registration {
                 JOptionPane.showMessageDialog(null, "Please Enter your Account Number!!");
             } else if (pin.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please Setup your Pin!! ");
-            }else {
-            try {
-                // JDBC connection
-                DataBase obj = new DataBase();
+            } else {
+                try {
+                    // String q1 = "INSERT INTO protb1 (fname, name, birth, phone, income, mail, assests, occ, acc, pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                   
+                    DataBase obj = new DataBase();
+                    // PreparedStatement pstmt = obj.con.prepareStatement(q1);
+                    // pstmt.setString(1, tf1.getText());
+                    // pstmt.setString(2, tf2.getText());
+                    // pstmt.setString(3, ((JTextField) cal.getDateEditor().getUiComponent()).getText());
+                    // pstmt.setString(4, tf4.getText());
+                    // pstmt.setString(5, tf5.getText());
+                    // pstmt.setString(6, maField.getText());
+                    // pstmt.setString(7, assField.getText());
+                    // pstmt.setString(8, (String) occBox.getSelectedItem());
+                    // pstmt.setString(9, accField.getText());
+                    // pstmt.setString(10, pinField.getText());
+                    // pstmt.executeUpdate(q1);
 
-                // SQL query to insert data
-                String insertQuery = "INSERT INTO protb1 (fname, name, birth, phone, income, mail, assests, occ, acc, pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    String s1 = tf1.getText();
+                    String s2 = tf2.getText();
+                    String s3 = ((JTextField) cal.getDateEditor().getUiComponent()).getText();
+                    String s4 = tf4.getText();
+                    String s5 = tf5.getText();
+                    String s6 = maField.getText();
+                    String s7 = assField.getText();
+                    String s8 = (String) occBox.getSelectedItem();
+                    String s9 = accField.getText();
+                    String s10 = pinField.getText();
+                    String q1 = "INSERT INTO protb1('"+s1+"','"+s2+"','"+s3+"','"+s4+"','"+s5+"','"+s6+"','"+s7+"','"+s8+"','"+s9+"','"+s10+"')";
+                    obj.st.executeUpdate(q1);
 
-                // Creating PreparedStatement
-                PreparedStatement preparedStatement = obj.con.prepareStatement(insertQuery);
-                
-                // Setting parameters4
-                preparedStatement.setString(1, firstName);       
-                preparedStatement.setString(2, lastName);         
-                preparedStatement.setString(3, dob1);              
-                preparedStatement.setString(4, phone);           
-                preparedStatement.setString(5, income);          
-                preparedStatement.setString(6, email);           
-                preparedStatement.setString(7, assets);           
-                preparedStatement.setString(8, occupation);       
-                preparedStatement.setString(9, accNumber);       
-                preparedStatement.setString(10, pin);
 
-                // Execute the query
-                preparedStatement.executeUpdate();
-
-                // Close the connection
-                obj.con.close();
-
-                // Show success message
-                JOptionPane.showMessageDialog(null, "Registration successful");
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                // Handle database errors
-                JOptionPane.showMessageDialog(null, "Error while saving data to the database");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         });
