@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.*;
 
 // last Updated 16Jan
 
@@ -81,6 +82,7 @@ public class Registration {
         tf2.setBounds(600, 380, 250, 40);
         tf2.setFont(f2);
 
+        //Date of Birth
         JLabel dob = new JLabel("Date of Birth : ");
         p1.add(dob);
         dob.setBounds(400, 420, 200, 50);
@@ -90,6 +92,8 @@ public class Registration {
         p1.add(cal);
         cal.setBounds(600, 420, 250, 40);
 
+
+        //Calendar
         JLabel rPhone = new JLabel("Phone : ");
         p1.add(rPhone);
         rPhone.setBounds(400, 460, 200, 50);
@@ -99,6 +103,18 @@ public class Registration {
         p1.add(tf4);
         tf4.setBounds(600, 460, 250, 40);
         tf4.setFont(f2);
+        tf4.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+                    e.consume(); // Ignore the input if it's not a digit or backspace
+                    JOptionPane.showMessageDialog(null, "Please enter Valid Number.");
+                }
+            }
+
+        });
         // limitTextFieldToNCharacters(tf4, 10);
 
         JLabel rIncome = new JLabel("Annual Income : ");

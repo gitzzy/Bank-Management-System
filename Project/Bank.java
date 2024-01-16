@@ -17,7 +17,6 @@ public class Bank {
 
         //JDBC Work
         String Account = Login.AccNum;
-        String pin = Login.Pin;
     
         try{
             DataBase conn = new DataBase();
