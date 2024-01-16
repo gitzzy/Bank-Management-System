@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 class Login {
+    static String AccNum;
+    static String Pin;
     public static void main(String[] args) {
         JFrame frm = new JFrame("Bank");
         frm.setSize(800, 600);
@@ -103,7 +105,9 @@ class Login {
                     if (res.next()) {
 
                         // Login Passed
-                        frm.dispose();
+                        frm.setVisible(false);
+                        AccNum = res.getString("acc");
+                        Pin = res.getString("pin");
                         Bank.main(args);
                     } else {
 

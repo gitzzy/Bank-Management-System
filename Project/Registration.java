@@ -225,6 +225,8 @@ public class Registration {
             String occupation = (String) occBox.getSelectedItem();
             String accNumber = accField.getText();
             String pin = pinField.getText();
+            String fullName = firstName+" "+lastName;
+            long bal = 0;
 
             if (firstName.equals("")) {
                 JOptionPane.showMessageDialog(null, "Name Field Cannot be empty!!");
@@ -249,6 +251,10 @@ public class Registration {
                 JOptionPane.showMessageDialog(null, "Please Enter your Account Number!!");
             } else if (pin.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please Setup your Pin!! ");
+            } else if(!cb1.isSelected()){
+                JOptionPane.showMessageDialog(null, "Please read our Terms & Condition.");
+            } else if(!cb2.isSelected()){
+                JOptionPane.showMessageDialog(null, "Please accept our Terms & Condition.");
             } else {
                 try {
                     // JDBC connection
@@ -256,11 +262,12 @@ public class Registration {
 
                     // SQL query to insert data
                     String insertQuery = "INSERT INTO protb1 (fname, name, birth, phone, income, mail, assests, occ, acc, pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+                    String mainQuery = "insert into protb2 (fullname, acc, pin ,balance) values (?,?,?,?)";
                     // Creating PreparedStatement
                     PreparedStatement preparedStatement = obj.con.prepareStatement(insertQuery);
+                    PreparedStatement mainSt = obj.con.prepareStatement(mainQuery);
 
-                    // Setting parameters4
+                    // Setting parameters
                     preparedStatement.setString(1, firstName);
                     preparedStatement.setString(2, lastName);
                     preparedStatement.setString(3, dob1);
@@ -272,8 +279,15 @@ public class Registration {
                     preparedStatement.setString(9, accNumber);
                     preparedStatement.setString(10, pin);
 
+                    // Paramters for protb2 
+                    mainSt.setString(1, fullName);
+                    mainSt.setString(2, accNumber);
+                    mainSt.setString(3, pin);
+                    mainSt.setLong(4, bal);
+
                     // Execute the query
                     preparedStatement.executeUpdate();
+                    mainSt.executeUpdate();
 
                     // Close the connection
                     obj.con.close();
@@ -286,7 +300,7 @@ public class Registration {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     // Handle database errors
-                    JOptionPane.showMessageDialog(null, "Error while saving data to the database");
+                    JOptionPane.showMessageDialog(null, "Error while saving data to the database. \nOr\nAccount number already Exits");
                 }
             }
         });
