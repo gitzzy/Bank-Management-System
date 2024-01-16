@@ -1,5 +1,7 @@
 package Project;
 
+import java.awt.CardLayout;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
