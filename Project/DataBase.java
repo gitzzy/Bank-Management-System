@@ -14,7 +14,6 @@ public class DataBase {
             String usr = "root";
             String pass = "";
             con = DriverManager.getConnection(url,usr , pass);
-            System.out.println("Connection Established");
 
         }catch(Exception e){
             e.printStackTrace();

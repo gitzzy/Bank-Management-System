@@ -1,10 +1,8 @@
 package Project;
 
-import java.awt.CardLayout;
 import java.awt.Font;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,8 +28,6 @@ public class Bank {
                 res.next();
                 fullName = res.getString("fullname");
                 Balance = res.getLong("balance");
-
-                System.out.println(fullName+" You have "+Balance);
 
         }catch(Exception ex){
             ex.printStackTrace();
@@ -77,6 +73,10 @@ public class Bank {
         JButton sndMoney = new JButton("Send Money");
         mainPanel.add(sndMoney);
         sndMoney.setBounds(200,150,200,50);
+        sndMoney.addActionListener(e->{
+            frm.dispose();
+            Options.main(args);
+        });
 
         //Withdraw
         JButton drawButton = new JButton("Withdraw");
