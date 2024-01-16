@@ -93,6 +93,7 @@ class Login {
                 PreparedStatement pt = conn.con.prepareStatement(q1);
                 pt.setString(1, accGet);
                 pt.setString(2, pinGet);
+
                 ResultSet res = pt.executeQuery();
 
                 if (accGet.equals("")) {
