@@ -284,6 +284,8 @@ public class Registration {
 
                     // Show success message
                     JOptionPane.showMessageDialog(null, "Registration successful");
+                    frm.dispose();
+                    Login.main(args);
 
                 } catch (SQLException ex) {
                     ex.printStackTrace();

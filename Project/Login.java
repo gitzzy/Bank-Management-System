@@ -3,12 +3,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 class Login{
     public static void main(String[] args) {
@@ -78,6 +80,44 @@ class Login{
         loginBtn.setBackground(Color.black);
         loginBtn.setForeground(Color.green);
         // loginBtn.setOpaque(true);
+
+        loginBtn.addActionListener(e ->{
+
+            String accGet = accField.getText();
+            String pinGet = pinPass.getText();
+            String q1 = "select acc,pin from protb1 where acc=? and pin=? ";
+            
+            
+            try{
+                DataBase conn = new DataBase();
+                PreparedStatement pt  = conn.con.prepareStatement(q1);
+                pt.setString(1, accGet);
+                pt.setString(2, pinGet);
+                ResultSet res = pt.executeQuery();
+
+                if(accGet.equals("")){
+                    JOptionPane.showMessageDialog(null,"Please enter Account Number.");
+                }else if(pinPass.equals("")){
+                    JOptionPane.showMessageDialog(null,"Please enter Account Pin.");
+                }else{
+                if(res.next()){
+
+                    // Login Passed
+                    //Temoprary to be removed
+                    JOptionPane.showMessageDialog(null, "Passed \nRemove it ASAP");
+
+                }else{
+
+                    // Login Fail
+                    JOptionPane.showMessageDialog(null,"Incorrect Account Number or Pin ");
+                }
+            }
+
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        
+        });
 
     
 
