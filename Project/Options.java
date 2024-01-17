@@ -7,7 +7,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -91,6 +90,15 @@ public class Options {
         sendButton.setBounds(50, 300, 200, 50);
         sendButton.setFont(new Font("Arial", Font.BOLD, 18));
 
+        ImageIcon exitIcon = new ImageIcon("Media/Exit2.png");
+        JButton exiButton = new JButton(exitIcon);
+        p1.add(exiButton);
+        exiButton.setBounds(450,300,200,50);
+        exiButton.addActionListener(e ->{
+            frm.dispose();
+            Bank.main(args);
+        });
+
         // Displaying Balance
         bal = Bank.Balance;
         JLabel balLabel = new JLabel("Balance :");
@@ -104,6 +112,8 @@ public class Options {
         balLabel2.setBounds(540, 50, 150, 50);
         balLabel2.setFont(new Font("Arial", Font.PLAIN, 18));
         balLabel2.setForeground(Color.green);
+
+       
 
         // JDBC Part
         DataBase obj = new DataBase();
