@@ -1,11 +1,10 @@
 package Project;
 
-import java.awt.CardLayout;
 import java.awt.Font;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,7 +17,6 @@ public class Bank {
 
         //JDBC Work
         String Account = Login.AccNum;
-        String pin = Login.Pin;
     
         try{
             DataBase conn = new DataBase();
@@ -29,8 +27,6 @@ public class Bank {
                 res.next();
                 fullName = res.getString("fullname");
                 Balance = res.getLong("balance");
-
-                System.out.println(fullName+" You have "+Balance);
 
         }catch(Exception ex){
             ex.printStackTrace();
@@ -72,7 +68,47 @@ public class Bank {
         Bal.setFont(new Font("Montserrat", Font.PLAIN, 20));
         Bal.setBounds(Name.getX(),30,200,50);
 
-        mainPanel.add(wallLabel);
+        //Send Money
+        JButton sndMoney = new JButton("Send Money");
+        mainPanel.add(sndMoney);
+        sndMoney.setBounds(200,150,200,50);
+        sndMoney.addActionListener(e->{
+            frm.dispose();
+            Options.main(args);
+        });
+
+        //Withdraw
+        JButton drawButton = new JButton("Withdraw");
+        mainPanel.add(drawButton);
+        drawButton.setBounds(200,225,200,50);
+
+        //Deposit 
+        JButton depositBtn = new JButton("Deposit");
+        mainPanel.add(depositBtn);
+        depositBtn.setBounds(200,300,200,50);
+
+        //Balance
+        JButton balButton = new JButton("Balance");
+        mainPanel.add(balButton);
+        balButton.setBounds(500,150,200,50);
+
+        //Change Pin
+        JButton cngPin = new JButton("Change Pin");
+        mainPanel.add(cngPin);
+        cngPin.setBounds(500,225,200,50);
+
+        //Exit Button
+        ImageIcon exitIcon = new ImageIcon("Media/Exit2.png");
+        JButton exiButton = new JButton(exitIcon);
+        mainPanel.add(exiButton);
+        exiButton.setBounds(500,375,200,50);
+        exiButton.addActionListener(e ->{
+            frm.dispose();
+            Login.main(args);
+        });
+
+
+        // mainPanel.add(wallLabel);
         mainPanel.add(atmLabel);
         frm.setVisible(true);
 
