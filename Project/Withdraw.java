@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.xml.crypto.Data;
 
 public class Withdraw {
 
@@ -44,12 +43,14 @@ public class Withdraw {
             ex.printStackTrace();
         }
 
-        
+
         JFrame frm = new JFrame("Withdraw Money");
         frm.setSize(1000, 700);
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frm.setLocation(200, 50);
         frm.setLayout(null);
+
+    
 
         // ATM Wallpaper
         ImageIcon logo = new ImageIcon("Media/Bank.jpg");
@@ -63,6 +64,15 @@ public class Withdraw {
         p1.setBackground(Color.black);
         p1.setLayout(null);
         p1.setBounds(138, 90, 690, 370);
+
+        ImageIcon exitIcon = new ImageIcon("Media/Exit2.png");
+        JButton exiButton = new JButton(exitIcon);
+        p1.add(exiButton);
+        exiButton.setBounds(450,300,200,50);
+        exiButton.addActionListener(e ->{
+            frm.dispose();
+            Bank.main(args);
+        });
 
         //Display Name
         JLabel Name = new JLabel("Welcome!!  "+fullName);
