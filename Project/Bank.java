@@ -35,8 +35,6 @@ public class Bank {
 
 
         JFrame frm = new JFrame("Bank");
-        // CardLayout cards = new CardLayout();
-        // frm.setLayout(cards);
         frm.setSize(1000, 700);
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frm.setLocation(200, 50);
@@ -84,6 +82,10 @@ public class Bank {
         JButton drawButton = new JButton("Withdraw");
         mainPanel.add(drawButton);
         drawButton.setBounds(200,225,200,50);
+        drawButton.addActionListener(e->{
+            frm.dispose();
+            Withdraw.main(args);
+        });
 
         //Deposit 
         JButton depositBtn = new JButton("Deposit");

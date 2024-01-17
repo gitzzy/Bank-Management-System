@@ -42,7 +42,13 @@ public class Options {
         mainPanel.setBackground(Color.red);
         mainPanel.setLayout(crd);
 
+        //Marks 
+        // the 
+        // Begning
+
+
         // Money Sending Panel
+
         JPanel p1 = new JPanel();
         mainPanel.add(p1, "crd1");
         JTextField tf1 = new JTextField();

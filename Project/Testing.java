@@ -92,7 +92,4 @@ public class Testing extends JFrame {
         });
     }
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> aa220e62feb52c7b4a3758a67cbc3a962a4838fd
