@@ -150,7 +150,9 @@ JOptionPane.showMessageDialog(null, "You Cannot send Money to your own Account."
 JOptionPane.showMessageDialog(null, "Please enter the Receiver's Account Number.");
            }else if(sendAmount<=0){
             JOptionPane.showMessageDialog(null, "Please enter Amount more than 0.\n:(");
-                       }
+           }else if(sendAmount > bal){
+JOptionPane.showMessageDialog(null, "You don't have sufficient balance.");
+           }
            else{
             try {
                 // Check if the account exists
