@@ -162,8 +162,8 @@ public class Withdraw {
         String q1 = "update protb2 SET balance = balance - ? WHERE acc = ?";
         withButton.addActionListener(e->{
             Long Amt = Long.parseLong(tf2.getText());
-           if(Amt==0){
-JOptionPane.showMessageDialog(null, "You can't withdraw 0.\n:(");
+           if(Amt<=0){
+JOptionPane.showMessageDialog(null, "Please enter Amount more than 0.\n:(");
            }else{
             try {
                 PreparedStatement pt1 = obj.con.prepareStatement(q1);

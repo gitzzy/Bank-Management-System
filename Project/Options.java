@@ -148,9 +148,9 @@ public class Options {
 JOptionPane.showMessageDialog(null, "You Cannot send Money to your own Account.");
            }else if(sndAccount.equals("")){
 JOptionPane.showMessageDialog(null, "Please enter the Receiver's Account Number.");
-           }else if(sendAmount == 0){
-JOptionPane.showMessageDialog(null, "You can't send 0 Amount.");
-           }
+           }else if(sendAmount<=0){
+            JOptionPane.showMessageDialog(null, "Please enter Amount more than 0.\n:(");
+                       }
            else{
             try {
                 // Check if the account exists
