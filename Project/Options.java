@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,7 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.mysql.cj.xdevapi.PreparableStatement;
+
 public class Options {
+
+    static boolean AccExists;
     public static void main(String[] args) {
 
         JFrame frm = new JFrame();
@@ -98,9 +105,33 @@ public class Options {
         balLabel2.setFont(new Font("Arial", Font.PLAIN, 18));
         balLabel2.setForeground(Color.green);
 
-        sendButton.addActionListener(e -> {
+        // JDBC Part
+        DataBase obj = new DataBase();
 
+        // Receiver's Balance INC
+        String q1 = "update protb2 SET balance = balance + ? WHERE acc = ?";
+        //Sender's Balance DEC
+        String q2 = "update protb2 SET balance = balance - ? WHERE acc = ?";
+
+        //Account Exists or not
+        String q3 = "select * from protb2 where acc = ?";
+        sendButton.addActionListener(e -> {
+            String sndAccount = tf1.getText();
             long sendAmount = Long.parseLong(tf2.getText());
+            //user who is sending money
+            String sender = Login.AccNum;
+
+            try{
+                PreparedStatement pt0 = obj.con.prepareStatement(q3);
+                pt0.setString(1, sndAccount);
+               ResultSet res = pt0.executeQuery();
+               AccExists = res.next();
+
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, sndAccount+" does not exists.");
+            }
+            //User goin to receive money
+           
             if (isNumeric(tf2.getText())) {
                 JOptionPane.showMessageDialog(null, "Please enter valid Amount.");
             } else if (tf1.getText().equals("")) {
@@ -109,6 +140,26 @@ public class Options {
                 JOptionPane.showMessageDialog(null, "Please enter Amount.");
             } else if (sendAmount > bal) {
                 JOptionPane.showMessageDialog(null, "You dont Have Sufficient Balance.");
+            } else if(!AccExists){
+                JOptionPane.showMessageDialog(null, sndAccount+"'s Account Does not Exists");
+            }
+             else {
+                try {
+                    PreparedStatement pt = obj.con.prepareStatement(q1);
+                    pt.setString(1, sndAccount);
+                    pt.setLong(2, sendAmount);
+
+                    PreparedStatement pt2 = obj.con.prepareStatement(q2);
+                    pt2.setString(1, sender);
+                    pt2.setLong(2, sendAmount);
+                    pt2.executeUpdate();
+                    pt.executeUpdate();
+                    obj.con.close();
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to Send Money.");
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -118,7 +169,7 @@ public class Options {
 
     private static boolean isNumeric(String str) {
         try {
-            double d = Double.parseDouble(str);
+            Long.parseLong(str);
         } catch (NumberFormatException nfe) {
             return true;
         }
