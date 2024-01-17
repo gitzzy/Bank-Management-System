@@ -16,11 +16,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
-
 public class Options {
 
     static boolean AccExists;
+    static long sendAmount;
+    static long bal;
+
     public static void main(String[] args) {
 
         JFrame frm = new JFrame();
@@ -43,7 +44,6 @@ public class Options {
         mainPanel.setLayout(crd);
 
         // Money Sending Panel
-
         JPanel p1 = new JPanel();
         mainPanel.add(p1, "crd1");
         JTextField tf1 = new JTextField();
@@ -92,7 +92,7 @@ public class Options {
         sendButton.setFont(new Font("Arial", Font.BOLD, 18));
 
         // Displaying Balance
-        long bal = Bank.Balance;
+        bal = Bank.Balance;
         JLabel balLabel = new JLabel("Balance :");
         p1.add(balLabel);
         balLabel.setBounds(520, 25, 150, 50);
@@ -110,57 +110,59 @@ public class Options {
 
         // Receiver's Balance INC
         String q1 = "update protb2 SET balance = balance + ? WHERE acc = ?";
-        //Sender's Balance DEC
+        // Sender's Balance DEC
         String q2 = "update protb2 SET balance = balance - ? WHERE acc = ?";
 
-        //Account Exists or not
+        // Account Exists or not
         String q3 = "select * from protb2 where acc = ?";
         sendButton.addActionListener(e -> {
             String sndAccount = tf1.getText();
-            long sendAmount = Long.parseLong(tf2.getText());
-            //user who is sending money
+            String sendAmountStr = tf2.getText();
+
+            // Additional check for numeric amount
+            if (!isNumeric(sendAmountStr)) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Amount.");
+                return;
+            }
+
+            sendAmount = Long.parseLong(sendAmountStr);
             String sender = Login.AccNum;
 
-            try{
+            try {
+                // Check if the account exists
                 PreparedStatement pt0 = obj.con.prepareStatement(q3);
                 pt0.setString(1, sndAccount);
-               ResultSet res = pt0.executeQuery();
-               AccExists = res.next();
+                ResultSet res = pt0.executeQuery();
+                AccExists = res.next();
 
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, sndAccount+" does not exists.");
-            }
-            //User goin to receive money
-           
-            if (isNumeric(tf2.getText())) {
-                JOptionPane.showMessageDialog(null, "Please enter valid Amount.");
-            } else if (tf1.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Please Enter the Receiver's\nAccount Number.");
-            } else if (tf2.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter Amount.");
-            } else if (sendAmount > bal) {
-                JOptionPane.showMessageDialog(null, "You dont Have Sufficient Balance.");
-            } else if(!AccExists){
-                JOptionPane.showMessageDialog(null, sndAccount+"'s Account Does not Exists");
-            }
-             else {
-                try {
-                    PreparedStatement pt = obj.con.prepareStatement(q1);
-                    pt.setString(1, sndAccount);
-                    pt.setLong(2, sendAmount);
-
-                    PreparedStatement pt2 = obj.con.prepareStatement(q2);
-                    pt2.setString(1, sender);
-                    pt2.setLong(2, sendAmount);
-                    pt2.executeUpdate();
-                    pt.executeUpdate();
-                    obj.con.close();
-
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Failed to Send Money.");
-                    ex.printStackTrace();
+                if (!AccExists) {
+                    JOptionPane.showMessageDialog(null, sndAccount + "'s Account Does not Exist");
+                    return;
                 }
+
+                // Update the sender's and receiver's balances
+                PreparedStatement pt1 = obj.con.prepareStatement(q1);
+                pt1.setLong(1, sendAmount); // Use setLong for balance update
+                pt1.setString(2, sndAccount);
+                pt1.executeUpdate();
+
+                PreparedStatement pt2 = obj.con.prepareStatement(q2);
+                pt2.setLong(1, sendAmount);
+                pt2.setString(2, sender);
+                pt2.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Money Sent Successfully.");
+                bal = bal - sendAmount;
+            balLabel2.setText("₹ " + bal);
+                p1.repaint();
+                tf1.setText("");
+                tf2.setText("");
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Failed to Send Money.");
+                ex.printStackTrace();
             }
+            
         });
 
         frm.add(atmLabel);
@@ -169,10 +171,11 @@ public class Options {
 
     private static boolean isNumeric(String str) {
         try {
+            // Invert the logic: return false if the string is numeric
             Long.parseLong(str);
-        } catch (NumberFormatException nfe) {
             return true;
+        } catch (NumberFormatException nfe) {
+            return false;
         }
-        return false;
     }
 }
