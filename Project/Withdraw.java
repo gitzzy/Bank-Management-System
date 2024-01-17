@@ -82,7 +82,7 @@ public class Withdraw {
         JLabel Bal = new JLabel("Balance : ₹"+Balance);
         frm.add(Bal);
         Bal.setFont(new Font("Montserrat", Font.PLAIN, 20));
-        Bal.setBounds(Name.getX(),30,200,50);
+        Bal.setBounds(Name.getX(),30,500,50);
         Bal.setForeground(Color.green);
 
 
@@ -160,14 +160,21 @@ public class Withdraw {
         String q1 = "update protb2 SET balance = balance - ? WHERE acc = ?";
         withButton.addActionListener(e->{
             Long Amt = Long.parseLong(tf2.getText());
-           try {
-            PreparedStatement pt1 = obj.con.prepareStatement(q1);
-            pt1.setLong(1, Amt); // Use setLong for balance update
-            pt1.setString(2, Account);
-            pt1.executeUpdate();
-            JOptionPane.showMessageDialog(null, "₹"+Amt+" Successfully Debited from your Account.");
-           } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null , "Failed to Withdraw Money.");
+           if(Amt<=0){
+JOptionPane.showMessageDialog(null, "Please enter Amount more than 0.\n:(");
+           }else{
+            try {
+                PreparedStatement pt1 = obj.con.prepareStatement(q1);
+                pt1.setLong(1, Amt); // Use setLong for balance update
+                pt1.setString(2, Account);
+                pt1.executeUpdate();
+                JOptionPane.showMessageDialog(null, "₹"+Amt+" Successfully Debited from your Account.\n :)");
+                Balance = Balance - Amt;
+                Bal.setText("Balance : ₹"+Balance);
+                tf2.setText("0");
+               } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null , "Failed to Withdraw Money.");
+               }
            }
         });
         
