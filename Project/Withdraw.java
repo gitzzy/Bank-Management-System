@@ -6,7 +6,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,9 +21,7 @@ public class Withdraw {
     static long amount;
     static String setAmnt;
     public static void main(String[] args) {
-
-
-
+        
         //JDBC Work
         String Account = Login.AccNum;
     
