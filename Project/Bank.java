@@ -66,7 +66,7 @@ public class Bank {
         JLabel Bal = new JLabel("Balance : ₹"+Balance);
         mainPanel.add(Bal);
         Bal.setFont(new Font("Montserrat", Font.PLAIN, 20));
-        Bal.setBounds(Name.getX(),30,200,50);
+        Bal.setBounds(Name.getX(),30,500,50);
         Bal.setForeground(Color.green);
 
         //Send Money

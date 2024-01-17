@@ -144,6 +144,14 @@ public class Options {
             sendAmount = Long.parseLong(sendAmountStr);
             String sender = Login.AccNum;
 
+           if(sndAccount.equals(sender)){
+JOptionPane.showMessageDialog(null, "You Cannot send Money to your own Account.");
+           }else if(sndAccount.equals("")){
+JOptionPane.showMessageDialog(null, "Please enter the Receiver's Account Number.");
+           }else if(sendAmount == 0){
+JOptionPane.showMessageDialog(null, "You can't send 0 Amount.");
+           }
+           else{
             try {
                 // Check if the account exists
                 PreparedStatement pt0 = obj.con.prepareStatement(q3);
@@ -178,6 +186,7 @@ public class Options {
                 JOptionPane.showMessageDialog(null, "Failed to Send Money.");
                 ex.printStackTrace();
             }
+           }
             
         });
 
