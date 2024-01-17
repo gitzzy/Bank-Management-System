@@ -1,5 +1,6 @@
 package Project;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,16 +58,18 @@ public class Bank {
 
 
         // Name
-        JLabel Name = new JLabel("Welcome "+fullName);
+        JLabel Name = new JLabel("Welcome!!  "+fullName);
         mainPanel.add(Name);
         Name.setFont(new Font("Montserrat", Font.PLAIN, 24));
         Name.setBounds(140, 0, 500, 50);
+        Name.setForeground(Color.orange);
 
         //Balance 
-        JLabel Bal = new JLabel("Balance : "+Balance);
+        JLabel Bal = new JLabel("Balance : ₹"+Balance);
         mainPanel.add(Bal);
         Bal.setFont(new Font("Montserrat", Font.PLAIN, 20));
         Bal.setBounds(Name.getX(),30,200,50);
+        Bal.setForeground(Color.green);
 
         //Send Money
         JButton sndMoney = new JButton("Send Money");
