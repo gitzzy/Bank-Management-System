@@ -91,6 +91,10 @@ public class Bank {
         JButton depositBtn = new JButton("Deposit");
         mainPanel.add(depositBtn);
         depositBtn.setBounds(200,300,200,50);
+        depositBtn.addActionListener(e ->{
+            frm.dispose();
+            Deposit.main(args);
+        });
 
         //Balance
         JButton balButton = new JButton("Balance");
@@ -101,6 +105,10 @@ public class Bank {
         JButton cngPin = new JButton("Change Pin");
         mainPanel.add(cngPin);
         cngPin.setBounds(500,225,200,50);
+        cngPin.addActionListener(e ->{
+            frm.dispose();
+            ChngPin.main(args);
+        });
 
         //Exit Button
         ImageIcon exitIcon = new ImageIcon("Media/Exit2.png");
