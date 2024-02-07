@@ -16,9 +16,9 @@ public class DataBase {
 
             //Second table
             //create table protb2 (fullname varchar(255), acc varchar(30), pin varchar(30), balance bigint);
-            String url = "jdbc:mysql://localhost:3308/ProDB";
+            String url = "jdbc:mysql://localhost:3306/ProDB";
             String usr = "root";
-            String pass = "";
+            String pass = "root1234";
             con = DriverManager.getConnection(url,usr , pass);
 
         }catch(Exception e){

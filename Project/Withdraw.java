@@ -162,6 +162,9 @@ public class Withdraw {
             Long Amt = Long.parseLong(tf2.getText());
            if(Amt<=0){
 JOptionPane.showMessageDialog(null, "Please enter Amount more than 0.\n:(");
+           } else if(Balance<Amt){
+JOptionPane.showMessageDialog(null, "You Don't have Sufficient Balance!!\n:(");
+tf2.setText("0");
            }else{
             try {
                 PreparedStatement pt1 = obj.con.prepareStatement(q1);

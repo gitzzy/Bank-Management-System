@@ -88,6 +88,7 @@ class Login {
 
             String accGet = accField.getText();
             String pinGet = pinPass.getText();
+            char[] pinGet2 = pinPass.getPassword();
             String q1 = "select acc,pin from protb1 where acc=? and pin=? ";
 
             try {
