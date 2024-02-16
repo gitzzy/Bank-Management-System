@@ -21,7 +21,7 @@ public class Admin1 {
 
     public static void main(String[] args) {
 
-        JFrame frm = new JFrame("Buttons");
+        JFrame frm = new JFrame("User's Application");
         frm.setSize(500, 500);
         frm.setLayout(new BorderLayout());
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

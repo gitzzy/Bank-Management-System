@@ -97,7 +97,7 @@ public class Bank {
         });
 
         //Balance
-        JButton balButton = new JButton("Balance");
+        JButton balButton = new JButton("History");
         mainPanel.add(balButton);
         balButton.setBounds(500,150,200,50);
 
