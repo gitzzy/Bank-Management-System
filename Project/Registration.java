@@ -271,6 +271,9 @@ public class Registration {
                 JOptionPane.showMessageDialog(null, "Please read our Terms & Condition.");
             } else if(!cb2.isSelected()){
                 JOptionPane.showMessageDialog(null, "Please accept our Terms & Condition.");
+            }else if(phone.length()!=10){
+JOptionPane.showMessageDialog(null,"Phone Number Should be of 10 Digit.");
+cards.next(cardPanel);
             } else {
                 try {
                     // JDBC connection
@@ -278,7 +281,7 @@ public class Registration {
 
                     // SQL query to insert data
                     String insertQuery = "INSERT INTO protb1 (fname, name, birth, phone, income, mail, assests, occ, acc, pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                    String mainQuery = "insert into protb2 (fullname, acc, pin ,balance) values (?,?,?,?)";
+                    String mainQuery = "insert into admin1 (full_name, Phone, mail, dob, acc, pin) values (?,?,?,?,?,?)";
                     // Creating PreparedStatement
                     PreparedStatement preparedStatement = obj.con.prepareStatement(insertQuery);
                     PreparedStatement mainSt = obj.con.prepareStatement(mainQuery);
@@ -297,9 +300,12 @@ public class Registration {
 
                     // Paramters for protb2 
                     mainSt.setString(1, fullName);
-                    mainSt.setString(2, accNumber);
-                    mainSt.setString(3, pin);
-                    mainSt.setLong(4, bal);
+                    mainSt.setString(2, phone);
+                    mainSt.setString(3, email);
+                    mainSt.setString(4, dob1);
+                    mainSt.setString(5, accNumber);
+                    mainSt.setString(6, pin);
+        
 
                     // Execute the query
                     preparedStatement.executeUpdate();

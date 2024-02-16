@@ -42,10 +42,9 @@ public class Options {
         mainPanel.setBackground(Color.red);
         mainPanel.setLayout(crd);
 
-        //Marks 
-        // the 
+        // Marks
+        // the
         // Begning
-
 
         // Money Sending Panel
 
@@ -99,8 +98,8 @@ public class Options {
         ImageIcon exitIcon = new ImageIcon("Media/Exit2.png");
         JButton exiButton = new JButton(exitIcon);
         p1.add(exiButton);
-        exiButton.setBounds(450,300,200,50);
-        exiButton.addActionListener(e ->{
+        exiButton.setBounds(450, 300, 200, 50);
+        exiButton.addActionListener(e -> {
             frm.dispose();
             Bank.main(args);
         });
@@ -118,8 +117,6 @@ public class Options {
         balLabel2.setBounds(540, 50, 150, 50);
         balLabel2.setFont(new Font("Arial", Font.PLAIN, 18));
         balLabel2.setForeground(Color.green);
-
-       
 
         // JDBC Part
         DataBase obj = new DataBase();
@@ -144,52 +141,51 @@ public class Options {
             sendAmount = Long.parseLong(sendAmountStr);
             String sender = Login.AccNum;
 
-           if(sndAccount.equals(sender)){
-JOptionPane.showMessageDialog(null, "You Cannot send Money to your own Account.");
-           }else if(sndAccount.equals("")){
-JOptionPane.showMessageDialog(null, "Please enter the Receiver's Account Number.");
-           }else if(sendAmount<=0){
-            JOptionPane.showMessageDialog(null, "Please enter Amount more than 0.\n:(");
-           }else if(sendAmount > bal){
-JOptionPane.showMessageDialog(null, "You don't have sufficient balance.");
-           }
-           else{
-            try {
-                // Check if the account exists
-                PreparedStatement pt0 = obj.con.prepareStatement(q3);
-                pt0.setString(1, sndAccount);
-                ResultSet res = pt0.executeQuery();
-                AccExists = res.next();
+            if (sndAccount.equals(sender)) {
+                JOptionPane.showMessageDialog(null, "You Cannot send Money to your own Account.");
+            } else if (sndAccount.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please enter the Receiver's Account Number.");
+            } else if (sendAmount <= 0) {
+                JOptionPane.showMessageDialog(null, "Please enter Amount more than 0.\n:(");
+            } else if (sendAmount > bal) {
+                JOptionPane.showMessageDialog(null, "You don't have sufficient balance.");
+            } else {
+                try {
+                    // Check if the account exists
+                    PreparedStatement pt0 = obj.con.prepareStatement(q3);
+                    pt0.setString(1, sndAccount);
+                    ResultSet res = pt0.executeQuery();
+                    AccExists = res.next();
 
-                if (!AccExists) {
-                    JOptionPane.showMessageDialog(null, sndAccount + "'s Account Does not Exist");
-                    return;
+                    if (!AccExists) {
+                        JOptionPane.showMessageDialog(null, sndAccount + "'s Account Does not Exist");
+                        return;
+                    }
+
+                    // Update the sender's and receiver's balances
+                    PreparedStatement pt1 = obj.con.prepareStatement(q1);
+                    pt1.setLong(1, sendAmount); // Use setLong for balance update
+                    pt1.setString(2, sndAccount);
+                    pt1.executeUpdate();
+
+                    PreparedStatement pt2 = obj.con.prepareStatement(q2);
+                    pt2.setLong(1, sendAmount);
+                    pt2.setString(2, sender);
+                    pt2.executeUpdate();
+
+                    JOptionPane.showMessageDialog(null, "Money Sent Successfully.");
+                    bal = bal - sendAmount;
+                    balLabel2.setText("₹ " + bal);
+                    p1.repaint();
+                    tf1.setText("");
+                    tf2.setText("");
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to Send Money.");
+                    ex.printStackTrace();
                 }
-
-                // Update the sender's and receiver's balances
-                PreparedStatement pt1 = obj.con.prepareStatement(q1);
-                pt1.setLong(1, sendAmount); // Use setLong for balance update
-                pt1.setString(2, sndAccount);
-                pt1.executeUpdate();
-
-                PreparedStatement pt2 = obj.con.prepareStatement(q2);
-                pt2.setLong(1, sendAmount);
-                pt2.setString(2, sender);
-                pt2.executeUpdate();
-
-                JOptionPane.showMessageDialog(null, "Money Sent Successfully.");
-                bal = bal - sendAmount;
-            balLabel2.setText("₹ " + bal);
-                p1.repaint();
-                tf1.setText("");
-                tf2.setText("");
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Failed to Send Money.");
-                ex.printStackTrace();
             }
-           }
-            
+
         });
 
         frm.add(atmLabel);

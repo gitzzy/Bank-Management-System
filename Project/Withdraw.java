@@ -20,34 +20,31 @@ public class Withdraw {
     static long Balance;
     static long amount;
     static String setAmnt;
+
     public static void main(String[] args) {
-        
-        //JDBC Work
+
+        // JDBC Work
         String Account = Login.AccNum;
-    
-        try{
+
+        try {
             DataBase conn = new DataBase();
             String q1 = "select * from protb2 where acc=?";
-                PreparedStatement pt = conn.con.prepareStatement(q1);
-                pt.setString(1, Account);
-                ResultSet res = pt.executeQuery();
-                res.next();
-                fullName = res.getString("fullname");
-                Balance = res.getLong("balance");
+            PreparedStatement pt = conn.con.prepareStatement(q1);
+            pt.setString(1, Account);
+            ResultSet res = pt.executeQuery();
+            res.next();
+            fullName = res.getString("fullname");
+            Balance = res.getLong("balance");
 
-
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-
 
         JFrame frm = new JFrame("Withdraw Money");
         frm.setSize(1000, 700);
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frm.setLocation(200, 50);
         frm.setLayout(null);
-
-    
 
         // ATM Wallpaper
         ImageIcon logo = new ImageIcon("Media/Bank.jpg");
@@ -65,26 +62,25 @@ public class Withdraw {
         ImageIcon exitIcon = new ImageIcon("Media/Exit2.png");
         JButton exiButton = new JButton(exitIcon);
         p1.add(exiButton);
-        exiButton.setBounds(450,300,200,50);
-        exiButton.addActionListener(e ->{
+        exiButton.setBounds(450, 300, 200, 50);
+        exiButton.addActionListener(e -> {
             frm.dispose();
             Bank.main(args);
         });
 
-        //Display Name
-        JLabel Name = new JLabel("Welcome!!  "+fullName);
+        // Display Name
+        JLabel Name = new JLabel("Welcome!!  " + fullName);
         frm.add(Name);
         Name.setFont(new Font("Montserrat", Font.PLAIN, 24));
         Name.setBounds(140, 0, 500, 50);
         Name.setForeground(Color.orange);
 
-        //Balance 
-        JLabel Bal = new JLabel("Balance : ₹"+Balance);
+        // Balance
+        JLabel Bal = new JLabel("Balance : ₹" + Balance);
         frm.add(Bal);
         Bal.setFont(new Font("Montserrat", Font.PLAIN, 20));
-        Bal.setBounds(Name.getX(),30,500,50);
+        Bal.setBounds(Name.getX(), 30, 500, 50);
         Bal.setForeground(Color.green);
-
 
         JLabel withAmount = new JLabel("Enter the Amount to Withdraw : ");
         withAmount.setBounds(50, 25, 350, 50);
@@ -92,7 +88,7 @@ public class Withdraw {
         withAmount.setFont(new Font("Arial", Font.PLAIN, 18));
         withAmount.setForeground(Color.white);
 
-     JTextField tf2 = new JTextField();
+        JTextField tf2 = new JTextField();
         p1.add(tf2);
         tf2.setBounds(50, 75, 300, 50);
         tf2.setBackground(Color.red);
@@ -118,69 +114,68 @@ public class Withdraw {
         JButton btn3 = new JButton("₹1000");
         JButton btn4 = new JButton("₹5000");
         p1.add(btn4);
-        btn4.setBounds(200,175,150,50);
+        btn4.setBounds(200, 175, 150, 50);
         btn4.setFont(new Font("Arial", Font.BOLD, 18));
         p1.add(btn1);
-        btn1.setBounds(50,125,150,50);
+        btn1.setBounds(50, 125, 150, 50);
         btn1.setFont(new Font("Arial", Font.BOLD, 18));
         p1.add(btn2);
-        btn2.setBounds(200,125,150,50);
+        btn2.setBounds(200, 125, 150, 50);
         btn2.setFont(new Font("Arial", Font.BOLD, 18));
         p1.add(btn3);
-        btn3.setBounds(50,175,150,50);
+        btn3.setBounds(50, 175, 150, 50);
         btn3.setFont(new Font("Arial", Font.BOLD, 18));
-        btn1.addActionListener(e->{
-            amount = Long.parseLong(tf2.getText())+100;
-            setAmnt = amount+"";
+        btn1.addActionListener(e -> {
+            amount = Long.parseLong(tf2.getText()) + 100;
+            setAmnt = amount + "";
             tf2.setText(setAmnt);
         });
-        btn2.addActionListener(e->{
-            amount = Long.parseLong(tf2.getText())+500;
-            setAmnt = amount+"";
+        btn2.addActionListener(e -> {
+            amount = Long.parseLong(tf2.getText()) + 500;
+            setAmnt = amount + "";
             tf2.setText(setAmnt);
         });
-        btn3.addActionListener(e->{
-            amount = Long.parseLong(tf2.getText())+1000;
-            setAmnt = amount+"";
+        btn3.addActionListener(e -> {
+            amount = Long.parseLong(tf2.getText()) + 1000;
+            setAmnt = amount + "";
             tf2.setText(setAmnt);
         });
-        btn4.addActionListener(e->{
-            amount = Long.parseLong(tf2.getText())+5000;
-            setAmnt = amount+"";
+        btn4.addActionListener(e -> {
+            amount = Long.parseLong(tf2.getText()) + 5000;
+            setAmnt = amount + "";
             tf2.setText(setAmnt);
         });
 
         JButton withButton = new JButton("Cash Out");
         p1.add(withButton);
         withButton.setFont(new Font("Arial", Font.BOLD, 18));
-        withButton.setBounds(50,250,300,50);
+        withButton.setBounds(50, 250, 300, 50);
 
-        //Main Working
+        // Main Working
         DataBase obj = new DataBase();
         String q1 = "update protb2 SET balance = balance - ? WHERE acc = ?";
-        withButton.addActionListener(e->{
+        withButton.addActionListener(e -> {
             Long Amt = Long.parseLong(tf2.getText());
-           if(Amt<=0){
-JOptionPane.showMessageDialog(null, "Please enter Amount more than 0.\n:(");
-           } else if(Balance<Amt){
-JOptionPane.showMessageDialog(null, "You Don't have Sufficient Balance!!\n:(");
-tf2.setText("0");
-           }else{
-            try {
-                PreparedStatement pt1 = obj.con.prepareStatement(q1);
-                pt1.setLong(1, Amt); // Use setLong for balance update
-                pt1.setString(2, Account);
-                pt1.executeUpdate();
-                JOptionPane.showMessageDialog(null, "₹"+Amt+" Successfully Debited from your Account.\n :)");
-                Balance = Balance - Amt;
-                Bal.setText("Balance : ₹"+Balance);
+            if (Amt <= 0) {
+                JOptionPane.showMessageDialog(null, "Please enter Amount more than 0.\n:(");
+            } else if (Balance < Amt) {
+                JOptionPane.showMessageDialog(null, "You Don't have Sufficient Balance!!\n:(");
                 tf2.setText("0");
-               } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null , "Failed to Withdraw Money.");
-               }
-           }
+            } else {
+                try {
+                    PreparedStatement pt1 = obj.con.prepareStatement(q1);
+                    pt1.setLong(1, Amt); // Use setLong for balance update
+                    pt1.setString(2, Account);
+                    pt1.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "₹" + Amt + " Successfully Debited from your Account.\n :)");
+                    Balance = Balance - Amt;
+                    Bal.setText("Balance : ₹" + Balance);
+                    tf2.setText("0");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to Withdraw Money.");
+                }
+            }
         });
-        
 
         frm.add(atmLabel);
         frm.setVisible(true);
