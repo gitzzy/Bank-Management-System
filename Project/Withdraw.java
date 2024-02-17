@@ -163,10 +163,19 @@ public class Withdraw {
                 tf2.setText("0");
             } else {
                 try {
+                    //"insert into history (user1, user2, amount, action) values (?,?,?,?)";
                     PreparedStatement pt1 = obj.con.prepareStatement(q1);
                     pt1.setLong(1, Amt); // Use setLong for balance update
                     pt1.setString(2, Account);
                     pt1.executeUpdate();
+                    String q0 = "insert into history (user1, user2, amount, action) values (?,?,?,?)";
+                    PreparedStatement pt2 = obj.con.prepareStatement(q0);
+                    pt2.setString(1, Account);
+                    pt2.setString(2, "Your Account");
+                    pt2.setLong(3, Amt);
+                    pt2.setString(4, "Withdrawn");
+                    pt2.executeUpdate();
+
                     JOptionPane.showMessageDialog(null, "₹" + Amt + " Successfully Debited from your Account.\n :)");
                     Balance = Balance - Amt;
                     Bal.setText("Balance : ₹" + Balance);

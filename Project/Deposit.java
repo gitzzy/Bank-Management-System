@@ -154,6 +154,7 @@ public class Deposit {
         // Main Working
         DataBase obj = new DataBase();
         String q1 = "update protb2 SET balance = balance + ? WHERE acc = ?";
+        String q2 = "insert into history (user1, user2, amount, action) values (?,?,?,?)";
         withButton.addActionListener(e -> {
             Long Amt = Long.parseLong(tf2.getText());
             if (Amt <= 0) {
@@ -164,6 +165,13 @@ public class Deposit {
                     pt1.setLong(1, Amt); // Use setLong for balance update
                     pt1.setString(2, Account);
                     pt1.executeUpdate();
+                    PreparedStatement pt2 = obj.con.prepareStatement(q2);
+                    pt2.setString(1, Account);
+                    pt2.setString(2, "Your Account");
+                    pt2.setLong(3, Amt);
+                    pt2.setString(4, "Deposited");
+                    pt2.executeUpdate();
+
                     JOptionPane.showMessageDialog(null, "₹" + Amt + " Successfully Added in your Account.\n :)");
                     Balance = Balance + Amt;
                     Bal.setText("Balance : ₹" + Balance);

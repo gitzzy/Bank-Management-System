@@ -173,6 +173,22 @@ public class Options {
                     pt2.setString(2, sender);
                     pt2.executeUpdate();
 
+                    String q4 = "insert into history (user1, user2, amount, action) values (?,?,?,?)";
+                    PreparedStatement pt4 = obj.con.prepareStatement(q4);
+                    pt4.setString(1, sender);
+                    pt4.setString(2, sndAccount);
+                    pt4.setLong(3, sendAmount);
+                    pt4.setString(4, "Sent");
+                    pt4.executeUpdate();
+
+                    String q5 = "insert into history (user1, user2, amount, action) values (?,?,?,?)";
+                    PreparedStatement pt5 = obj.con.prepareStatement(q5);
+                    pt5.setString(1, sndAccount);
+                    pt5.setString(2, sender);
+                    pt5.setLong(3, sendAmount);
+                    pt5.setString(4, "Received");
+                    pt5.executeUpdate();
+
                     JOptionPane.showMessageDialog(null, "Money Sent Successfully.");
                     bal = bal - sendAmount;
                     balLabel2.setText("₹ " + bal);
@@ -194,7 +210,6 @@ public class Options {
 
     private static boolean isNumeric(String str) {
         try {
-            // Invert the logic: return false if the string is numeric
             Long.parseLong(str);
             return true;
         } catch (NumberFormatException nfe) {

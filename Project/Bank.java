@@ -100,6 +100,10 @@ public class Bank {
         JButton balButton = new JButton("History");
         mainPanel.add(balButton);
         balButton.setBounds(500,150,200,50);
+        balButton.addActionListener(e->{
+            frm.dispose();
+            History.main(args);
+        });
 
         //Change Pin
         JButton cngPin = new JButton("Change Pin");
