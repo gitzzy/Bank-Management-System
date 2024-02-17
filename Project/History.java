@@ -96,18 +96,22 @@ public class History {
 
             if (Act.get(i).equals("Deposited")) {
                 label.setText("You Deposited ₹" + Amnt.get(i) + " via Cash");
+                pnl[i].setBackground(new Color(119,221,119));
 
             } else if (Act.get(i).equals("Withdrawn")) {
                 label.setText("You Withdrawn ₹" + Amnt.get(i) + " via Cash");
+                pnl[i].setBackground(new Color(255,57,57));
 
             } else if (Act.get(i).equals("Sent")) {
-                label.setText(usr1.get(i) + " " + Act.get(i)
+                label.setText("You " + Act.get(i)
                         + " ₹" + Amnt.get(i) + " to " + usr2.get(i));
+                        pnl[i].setBackground(new Color(255,57,57));
             }
 
             else {
-                label.setText(usr1.get(i) + " " + Act.get(i)
+                label.setText("You " + Act.get(i)
                         + " ₹" + Amnt.get(i) + " from " + usr2.get(i));
+                        pnl[i].setBackground(new Color(119,221,119));
             }
 
 
