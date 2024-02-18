@@ -109,7 +109,7 @@ public class Registration {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
-                    e.consume(); // Ignore the input if it's not a digit or backspace
+                    e.consume();
                     JOptionPane.showMessageDialog(null, "Please enter Valid Number.");
                 }
             }
@@ -242,7 +242,7 @@ public class Registration {
             String accNumber = accField.getText();
             String pin = pinField.getText();
             String fullName = firstName+" "+lastName;
-            long bal = 0;
+            // long bal = 0;
 
             if (firstName.equals("")) {
                 JOptionPane.showMessageDialog(null, "Name Field Cannot be empty!!");

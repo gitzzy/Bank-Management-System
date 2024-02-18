@@ -149,10 +149,14 @@ public class Admin1 {
         btns[ii].addActionListener(e -> {
             JOptionPane.showMessageDialog(null, ar1.get(ii)+" is Rejected.");
             String q2 = "delete from admin1 where acc=?";
+            String q3 = "delete from protb1 where acc=?";
             try{
                 PreparedStatement pt = obj.con.prepareStatement(q2);
                 pt.setString(1, acc.get(ii));
                 pt.executeUpdate();
+                PreparedStatement pt00 = obj.con.prepareStatement(q3);
+                pt.setString(1, acc.get(ii));
+                pt00.executeUpdate();
                 frm.dispose();
                 Test2.main(args);
             }

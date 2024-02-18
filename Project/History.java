@@ -7,9 +7,8 @@ import java.awt.GridLayout;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
-import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +20,7 @@ public class History {
     public static int Count;
 
     public static void main(String[] args) {
+        Count=0;
         JFrame frm = new JFrame("Bank");
         frm.setSize(1000, 700);
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,6 +31,28 @@ public class History {
         JPanel mainPanel = new JPanel();
         ImageIcon logo = new ImageIcon("Media/Bank.jpg");
         JLabel atmLabel = new JLabel(logo);
+
+        JLabel Name = new JLabel("Welcome!!  "+Bank.fullName);
+        mainPanel.add(Name);
+        Name.setFont(new Font("Montserrat", Font.PLAIN, 24));
+        Name.setBounds(140, 0, 500, 50);
+        Name.setForeground(Color.orange);
+
+        //Balance 
+        JLabel Bal = new JLabel("Balance : ₹"+Bank.Balance);
+        mainPanel.add(Bal);
+        Bal.setFont(new Font("Montserrat", Font.PLAIN, 20));
+        Bal.setBounds(Name.getX(),30,500,50);
+        Bal.setForeground(Color.green);
+
+        ImageIcon exitIcon = new ImageIcon("Media/Exit2.png");
+        JButton exit = new JButton(exitIcon);
+        frm.add(exit);
+        exit.setBounds(620,97,200,55);
+        exit.addActionListener(e->{
+frm.dispose();
+Bank.main(args);
+        });
 
         mainPanel.setBounds(0, 0, 1000, 700);
         mainPanel.setLayout(null);
@@ -48,7 +70,7 @@ public class History {
         try {
             DataBase obj = new DataBase();
             PreparedStatement pt0 = obj.con.prepareStatement(q1);
-            pt0.setString(1, "vishal");
+            pt0.setString(1, Acc1);
             // pt0.setString(2, Acc1);
             ResultSet rs = pt0.executeQuery();
 
@@ -69,6 +91,7 @@ public class History {
         JScrollPane sPane = new JScrollPane();
         sPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
+        //ScrollAble PAnel
         JPanel p1 = new JPanel(new GridLayout(Count, 1, 0, 5));
         sPane.setViewportView(p1);
         sPane.setBounds(137, 87 + 75, 690, 300);
