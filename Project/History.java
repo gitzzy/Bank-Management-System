@@ -109,7 +109,7 @@ Bank.main(args);
             JLabel label = new JLabel();
             label.setBounds(10, 15, 490, 25);
             pnl[i].add(label);
-            label.setFont(new Font("Signboard",Font.PLAIN,15));
+            label.setFont(new Font("Arial",Font.PLAIN,15));
 
             JLabel dLab = new JLabel();
             dLab.setBounds(500, 10, 200, 20);
@@ -123,12 +123,12 @@ Bank.main(args);
 
             } else if (Act.get(i).equals("Withdrawn")) {
                 label.setText("You Withdrawn ₹" + Amnt.get(i) + " via Cash");
-                pnl[i].setBackground(new Color(255,57,57));
+                pnl[i].setBackground(new Color(229,85,78));
 
             } else if (Act.get(i).equals("Sent")) {
                 label.setText("You " + Act.get(i)
                         + " ₹" + Amnt.get(i) + " to " + usr2.get(i));
-                        pnl[i].setBackground(new Color(255,57,57));
+                        pnl[i].setBackground(new Color(229,85,78));
             }
 
             else {
