@@ -17,6 +17,7 @@ public class index {
         btn1.setBounds(50,50,200,50);
         btn1.addActionListener(e->{
             Login.main(args);
+            frm.dispose();
         });
 
         JButton btn2 = new JButton("Admin's Portal");
@@ -24,6 +25,7 @@ public class index {
         frm.add(btn2);
         btn2.addActionListener(e->{
             aLogin.main(args);
+            frm.dispose();
         });
 
         ImageIcon exit = new ImageIcon("Media/Exit2.png");
