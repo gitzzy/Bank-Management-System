@@ -21,7 +21,7 @@ public class aLogin {
         frm.setLocation(350, 100);
 
         //Wallpaper
-        ImageIcon wIcon = new ImageIcon("Media/adminW.png");
+        ImageIcon wIcon = new ImageIcon("Media/plainbg2.jpg");
         JLabel wall = new JLabel(wIcon);
         wall.setBounds(0,0,500,500);
 
@@ -66,6 +66,8 @@ public class aLogin {
         login.addActionListener(e->{
             if(tf1.getText().equals("admin") && pf.getText().equals("admin")){
                 JOptionPane.showMessageDialog(null, "Login successfull");
+                aHome.main(args);
+                frm.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Invalid Passcode or Username ");
             }

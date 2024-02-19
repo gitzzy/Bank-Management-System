@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,11 +24,25 @@ public class uVerification {
     public static void main(String[] args) {
 
         JFrame frm = new JFrame("User's Application");
-        frm.setSize(500, 500);
-        frm.setLayout(new BorderLayout());
+        frm.setSize(500, 530);
+        frm.setLayout(null);
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frm.setLocation(350, 100);
         int Count = 0;
+
+        ImageIcon exitIcon = new ImageIcon("Media/Exit.png");
+        JButton exitButton = new JButton(exitIcon);
+        frm.add(exitButton);
+        exitButton.setBounds(420, 25, 50, 50);
+        exitButton.addActionListener(e -> {
+            aHome.main(args);
+            frm.dispose();
+        });
+
+        JPanel frm1 = new JPanel();
+        frm1.setLayout(new BorderLayout());
+        frm.add(frm1);
+        frm1.setBounds(0,100,500,400);
         JScrollPane sPane = new JScrollPane();
         sPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -138,13 +154,14 @@ public class uVerification {
                 pt1.setString(4, "0");
                 pt.executeUpdate();
                 pt1.executeUpdate();
-                frm.dispose();
-                uVerification.main(args);
+                
             }
             catch(Exception ex){
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(null, "There was error while Approving User.");
             }
+            frm.dispose();
+                uVerification.main(args);
         });
         btns[ii].addActionListener(e -> {
             JOptionPane.showMessageDialog(null, ar1.get(ii)+" is Rejected.");
@@ -157,18 +174,19 @@ public class uVerification {
                 PreparedStatement pt00 = obj.con.prepareStatement(q3);
                 pt.setString(1, acc.get(ii));
                 pt00.executeUpdate();
-                frm.dispose();
-                uVerification.main(args);
+                
             }
             catch(Exception ex){
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(null, "There was error while Approving User.");
             }
+            frm.dispose();
+                uVerification.main(args);
         });
        }
        
 
-        frm.add(sPane, BorderLayout.CENTER);
+        frm1.add(sPane, BorderLayout.CENTER);
 
         frm.setVisible(true);
     }

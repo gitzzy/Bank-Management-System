@@ -1,5 +1,7 @@
 package Project;
 
+import java.awt.Color;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,7 +12,8 @@ public class index {
         frm.setSize(300, 300);
         frm.setLayout(null);
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frm.setLocation(350, 200);
+        frm.setLocation(500, 200);
+        frm.setBackground(Color.gray);
 
         JButton btn1 = new JButton("User's Portal");
         frm.add(btn1);

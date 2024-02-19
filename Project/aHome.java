@@ -2,6 +2,7 @@ package Project;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -21,32 +22,38 @@ public class aHome {
         // Set the background image
         BackgroundPanel backgroundPanel = new BackgroundPanel(new ImageIcon("Media/plainbg2.jpg").getImage());
         backgroundPanel.setLayout(null);
-        backgroundPanel.setSize(500, 500);
+        frm.add(backgroundPanel);
+        backgroundPanel.setBounds(0,0,500,500);
 
         // Create button1
-        JButton button1 = new JButton("Button 1");
+        JButton button1 = new JButton("Manage Users");
         button1.setBackground(Color.PINK);
-        button1.setBounds(50, 300, 100, 40);
+        button1.setBounds(150, 320, 200, 50);
         backgroundPanel.add(button1);
+        button1.setFont(new Font("American Typewriter",Font.PLAIN,20));
 
         // Create button2
-        JButton button2 = new JButton("Button 2");
+        JButton button2 = new JButton("View Applications");
         button2.setBackground(Color.PINK);
-        button2.setBounds(350, 300, 100, 40);
+        button2.setBounds(150, 380, 200, 50);
         backgroundPanel.add(button2);
+        button2.setFont(new Font("American Typewriter",Font.PLAIN,20));
+        button2.addActionListener(e->{
+            uVerification.main(args);
+            frm.dispose();
+        });
 
         // Add useronadmin image at the center
-        ImageIcon img2 = new ImageIcon("Media/useronadmin.webp");
+        ImageIcon img2 = new ImageIcon("Media/useronadmin.png");
         JLabel l2 = new JLabel(img2);
-        l2.setBounds(200, 200, 100, 100);
+        l2.setBounds(100, 0, 300, 300);
         backgroundPanel.add(l2);
 
         // Add the background panel to the frame
-        frm.add(backgroundPanel);
 
         ImageIcon exitIcon = new ImageIcon("Media/Exit.png");
         JButton exitButton = new JButton(exitIcon);
-        frm.add(exitButton);
+        backgroundPanel.add(exitButton);
         exitButton.setBounds(420, 10, 50, 50);
         exitButton.addActionListener(e -> {
             index.main(args);
