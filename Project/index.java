@@ -1,8 +1,5 @@
 package Project;
 
-import java.awt.Color;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +22,9 @@ public class index {
         JButton btn2 = new JButton("Admin's Portal");
         btn2.setBounds(50,100,200,50);
         frm.add(btn2);
+        btn2.addActionListener(e->{
+            aLogin.main(args);
+        });
 
         ImageIcon exit = new ImageIcon("Media/Exit2.png");
         JButton btn3 = new JButton(exit);

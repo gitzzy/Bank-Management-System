@@ -150,6 +150,15 @@ class Login {
             Registration.main(args);
         });
 
+        ImageIcon exitIcon = new ImageIcon("Media/Exit.png");
+        JButton exitButton = new JButton(exitIcon);
+        frm.add(exitButton);
+        exitButton.setBounds(20,10,50,50);
+        exitButton.addActionListener(e->{
+            index.main(args);
+            frm.dispose();
+        });
+
         frm.setVisible(true);
     }
 }

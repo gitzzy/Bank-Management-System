@@ -221,6 +221,15 @@ public class Registration {
         p2.add(cb2);
         cb2.setBounds(45, 380, 350, 50);
 
+        ImageIcon exitIcon = new ImageIcon("Media/Exit.png");
+        JButton exitButton = new JButton(exitIcon);
+        p2.add(exitButton);
+        exitButton.setBounds(310,455,50,50);
+        exitButton.addActionListener(e->{
+            index.main(args);
+            frm.dispose();
+        });
+
         // Blanc Checker
 
         // Register Button

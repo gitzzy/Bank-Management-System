@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class Admin1 {
+public class uVerification {
     static boolean check;
     static int ii;
     static int a;
@@ -25,7 +25,7 @@ public class Admin1 {
         frm.setSize(500, 500);
         frm.setLayout(new BorderLayout());
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frm.setLocation(350, 200);
+        frm.setLocation(350, 100);
         int Count = 0;
         JScrollPane sPane = new JScrollPane();
         sPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -139,7 +139,7 @@ public class Admin1 {
                 pt.executeUpdate();
                 pt1.executeUpdate();
                 frm.dispose();
-                Test2.main(args);
+                uVerification.main(args);
             }
             catch(Exception ex){
                 ex.printStackTrace();
@@ -158,7 +158,7 @@ public class Admin1 {
                 pt.setString(1, acc.get(ii));
                 pt00.executeUpdate();
                 frm.dispose();
-                Test2.main(args);
+                uVerification.main(args);
             }
             catch(Exception ex){
                 ex.printStackTrace();
