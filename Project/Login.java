@@ -82,6 +82,7 @@ class Login {
         loginBtn.setBounds(470, 410, 150, 50);
         loginBtn.setBackground(Color.black);
         loginBtn.setForeground(Color.green);
+        loginBtn.setFont(new Font("American Typewriter",Font.PLAIN,20));
         // loginBtn.setOpaque(true);
 
         loginBtn.addActionListener(e -> {
@@ -128,6 +129,7 @@ class Login {
         JButton clearBtn = new JButton("Clear");
         clearBtn.setBounds(620, 410, 150, 50);
         clearBtn.setForeground(Color.red);
+        clearBtn.setFont(new Font("American Typewriter",Font.PLAIN,20));
         frm.add(clearBtn);
         frm.add(loginBtn);
 
@@ -143,6 +145,7 @@ class Login {
         JButton regBtn = new JButton("Register Now!");
         regBtn.setBounds(470, 460, 300, 50);
         regBtn.setForeground(Color.black);
+        regBtn.setFont(new Font("American Typewriter",Font.PLAIN,20));
         frm.add(regBtn);
 
         regBtn.addActionListener(e -> {

@@ -73,42 +73,51 @@ public class Bank {
         JButton sndMoney = new JButton("Send Money");
         mainPanel.add(sndMoney);
         sndMoney.setBounds(200,150,200,50);
+        sndMoney.setFont(new Font("American Typewriter",Font.PLAIN,20));
         sndMoney.addActionListener(e->{
-            frm.dispose();
             Options.main(args);
+            frm.dispose();
+            
         });
 
         //Withdraw
         JButton drawButton = new JButton("Withdraw");
         mainPanel.add(drawButton);
         drawButton.setBounds(200,225,200,50);
+        drawButton.setFont(new Font("American Typewriter",Font.PLAIN,20));
         drawButton.addActionListener(e->{
-            frm.dispose();
             Withdraw.main(args);
+            frm.dispose();
+            
         });
 
         //Deposit 
         JButton depositBtn = new JButton("Deposit");
         mainPanel.add(depositBtn);
         depositBtn.setBounds(200,300,200,50);
+        depositBtn.setFont(new Font("American Typewriter",Font.PLAIN,20));
         depositBtn.addActionListener(e ->{
-            frm.dispose();
             Deposit.main(args);
+            frm.dispose();
+            
         });
 
         //Balance
         JButton balButton = new JButton("History");
         mainPanel.add(balButton);
         balButton.setBounds(500,150,200,50);
+        balButton.setFont(new Font("American Typewriter",Font.PLAIN,20));
         balButton.addActionListener(e->{
-            frm.dispose();
             History.main(args);
+            frm.dispose();
+            
         });
 
         //Change Pin
         JButton cngPin = new JButton("Change Pin");
         mainPanel.add(cngPin);
         cngPin.setBounds(500,225,200,50);
+        cngPin.setFont(new Font("American Typewriter",Font.PLAIN,20));
         cngPin.addActionListener(e ->{
             frm.dispose();
             ChngPin.main(args);
