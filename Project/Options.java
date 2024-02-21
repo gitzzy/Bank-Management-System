@@ -156,9 +156,13 @@ public class Options {
                     pt0.setString(1, sndAccount);
                     ResultSet res = pt0.executeQuery();
                     AccExists = res.next();
+                    String sts = res.getString("status");
 
                     if (!AccExists) {
                         JOptionPane.showMessageDialog(null, sndAccount + "'s Account Does not Exist");
+                        return;
+                    }else if(sts.equals("Blocked")){
+                        JOptionPane.showMessageDialog(null, sndAccount+" is Blocked.");
                         return;
                     }
 

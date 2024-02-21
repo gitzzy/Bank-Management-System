@@ -31,6 +31,10 @@ public class aHome {
         button1.setBounds(150, 320, 200, 50);
         backgroundPanel.add(button1);
         button1.setFont(new Font("American Typewriter",Font.PLAIN,20));
+        button1.addActionListener(e->{
+            uManage.main(args);
+            frm.dispose();
+        });
 
         // Create button2
         JButton button2 = new JButton("View Applications");

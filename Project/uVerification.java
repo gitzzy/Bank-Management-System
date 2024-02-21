@@ -3,6 +3,7 @@ package Project;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +30,11 @@ public class uVerification {
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frm.setLocation(350, 100);
         int Count = 0;
+
+        JLabel text = new JLabel("Pending Applications");
+        text.setFont(new Font("American Typewriter",Font.PLAIN,26));
+        frm.add(text);
+        text.setBounds(10,20,300,50);
 
         ImageIcon exitIcon = new ImageIcon("Media/Exit.png");
         JButton exitButton = new JButton(exitIcon);
@@ -143,7 +149,7 @@ public class uVerification {
         btn[ii].addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "You Have Approved : "+ar1.get(ii));
             String q2 = "delete from admin1 where acc=?";
-            String q3 = "insert into protb2 (fullname, acc, pin, balance)values(?,?,?,?)";
+            String q3 = "insert into protb2 (fullname, acc, pin, balance, status)values(?,?,?,?,?)";
             try{
                 PreparedStatement pt = obj.con.prepareStatement(q2);
                 PreparedStatement pt1 = obj.con.prepareStatement(q3);
@@ -152,6 +158,7 @@ public class uVerification {
                 pt1.setString(2, acc.get(ii));
                 pt1.setString(3, pin.get(ii));
                 pt1.setString(4, "0");
+                pt1.setString(5, "Active");
                 pt.executeUpdate();
                 pt1.executeUpdate();
                 
@@ -178,7 +185,7 @@ public class uVerification {
             }
             catch(Exception ex){
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, "There was error while Approving User.");
+                // JOptionPane.showMessageDialog(null, "There was error while Approving User.");
             }
             frm.dispose();
                 uVerification.main(args);

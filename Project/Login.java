@@ -16,6 +16,8 @@ import java.sql.ResultSet;
 class Login {
     static String AccNum;
     static String Pin;
+    static String stats;
+
     public static void main(String[] args) {
         JFrame frm = new JFrame("Bank");
         frm.setSize(800, 600);
@@ -82,7 +84,7 @@ class Login {
         loginBtn.setBounds(470, 410, 150, 50);
         loginBtn.setBackground(Color.black);
         loginBtn.setForeground(Color.green);
-        loginBtn.setFont(new Font("American Typewriter",Font.PLAIN,20));
+        loginBtn.setFont(new Font("American Typewriter", Font.PLAIN, 20));
         // loginBtn.setOpaque(true);
 
         loginBtn.addActionListener(e -> {
@@ -90,7 +92,7 @@ class Login {
             String accGet = accField.getText();
             String pinGet = pinPass.getText();
             char[] pinGet2 = pinPass.getPassword();
-            String q1 = "select acc,pin from protb2 where acc=? and pin=? ";
+            String q1 = "select acc,pin,status from protb2 where acc=? and pin=? ";
 
             try {
                 DataBase conn = new DataBase();
@@ -107,10 +109,17 @@ class Login {
                     if (res.next()) {
 
                         // Login Passed
-                        frm.setVisible(false);
                         AccNum = res.getString("acc");
                         Pin = res.getString("pin");
-                        Bank.main(args);
+                        stats = res.getString("status");
+                        if (stats.equals("Blocked")) {
+
+                            JOptionPane.showMessageDialog(null, "Oops!! Your Account is Blocked. \n:(");
+
+                        } else {
+                            Bank.main(args);
+                            frm.dispose();
+                        }
                     } else {
 
                         // Login Fail
@@ -129,7 +138,7 @@ class Login {
         JButton clearBtn = new JButton("Clear");
         clearBtn.setBounds(620, 410, 150, 50);
         clearBtn.setForeground(Color.red);
-        clearBtn.setFont(new Font("American Typewriter",Font.PLAIN,20));
+        clearBtn.setFont(new Font("American Typewriter", Font.PLAIN, 20));
         frm.add(clearBtn);
         frm.add(loginBtn);
 
@@ -145,7 +154,7 @@ class Login {
         JButton regBtn = new JButton("Register Now!");
         regBtn.setBounds(470, 460, 300, 50);
         regBtn.setForeground(Color.black);
-        regBtn.setFont(new Font("American Typewriter",Font.PLAIN,20));
+        regBtn.setFont(new Font("American Typewriter", Font.PLAIN, 20));
         frm.add(regBtn);
 
         regBtn.addActionListener(e -> {
@@ -156,8 +165,8 @@ class Login {
         ImageIcon exitIcon = new ImageIcon("Media/Exit.png");
         JButton exitButton = new JButton(exitIcon);
         frm.add(exitButton);
-        exitButton.setBounds(20,10,50,50);
-        exitButton.addActionListener(e->{
+        exitButton.setBounds(20, 10, 50, 50);
+        exitButton.addActionListener(e -> {
             index.main(args);
             frm.dispose();
         });
