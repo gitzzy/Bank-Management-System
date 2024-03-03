@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +23,8 @@ import java.awt.event.*;
 // last Updated 16Jan
 
 public class Registration {
+    static String fDate;
+
     public static void main(String[] args) {
 
         ImageIcon logo = new ImageIcon("Media/Next.png");
@@ -82,7 +86,7 @@ public class Registration {
         tf2.setBounds(600, 380, 250, 40);
         tf2.setFont(f2);
 
-        //Date of Birth
+        // Date of Birth
         JLabel dob = new JLabel("Date of Birth : ");
         p1.add(dob);
         dob.setBounds(400, 420, 200, 50);
@@ -92,8 +96,7 @@ public class Registration {
         p1.add(cal);
         cal.setBounds(600, 420, 250, 40);
 
-
-        //Calendar
+        // Calendar
         JLabel rPhone = new JLabel("Phone : ");
         p1.add(rPhone);
         rPhone.setBounds(400, 460, 200, 50);
@@ -224,8 +227,8 @@ public class Registration {
         ImageIcon exitIcon = new ImageIcon("Media/Exit.png");
         JButton exitButton = new JButton(exitIcon);
         p2.add(exitButton);
-        exitButton.setBounds(310,455,50,50);
-        exitButton.addActionListener(e->{
+        exitButton.setBounds(310, 455, 50, 50);
+        exitButton.addActionListener(e -> {
             index.main(args);
             frm.dispose();
         });
@@ -250,8 +253,51 @@ public class Registration {
             String occupation = (String) occBox.getSelectedItem();
             String accNumber = accField.getText();
             String pin = pinField.getText();
-            String fullName = firstName+" "+lastName;
+            String fullName = firstName + " " + lastName;
             // long bal = 0;
+            String dt = dob1;
+            int len = dt.length();
+            System.out.println(LocalDate.now());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            fDate = LocalDate.now().format(formatter);
+
+            if (len == 11) {
+                if (dt.charAt(2) == '-' && dt.charAt(len - 5) == '-') {
+                    // System.out.println(dt.charAt(2));
+                    // System.out.println(dt.charAt(len-5));
+                    // System.out.println("valid date");
+                    StringBuilder dob0 = new StringBuilder();
+                    StringBuilder tdat = new StringBuilder();
+                    for (int i = 4; i > 0; i--) {
+                        dob0.append(dt.charAt(len - i));
+                        tdat.append(fDate.charAt(fDate.length() - i));
+                    }
+                    System.out.println("dob : " + dob0.toString());
+                    System.out.println("today : " + tdat.toString());
+                    int age = Integer.parseInt(tdat.toString()) - Integer.parseInt(dob0.toString());
+                    if (age >= 18) {
+                        // System.out.println("You are Eligible : "+age);
+                    } else {
+                        // System.out.println("Not Eligible : "+age);
+                        JOptionPane.showMessageDialog(null, "Not Eligible : \nReason : Under Age");
+                        frm.dispose();
+                        Registration.main(args);
+                        return;
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid Date Format");
+                    frm.dispose();
+                    Registration.main(args);
+                    return;
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid Date");
+                frm.dispose();
+                Registration.main(args);
+                return;
+            }
 
             if (firstName.equals("")) {
                 JOptionPane.showMessageDialog(null, "Name Field Cannot be empty!!");
@@ -276,13 +322,15 @@ public class Registration {
                 JOptionPane.showMessageDialog(null, "Please Enter your Account Number!!");
             } else if (pin.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please Setup your Pin!! ");
-            } else if(!cb1.isSelected()){
+            } else if (!cb1.isSelected()) {
                 JOptionPane.showMessageDialog(null, "Please read our Terms & Condition.");
-            } else if(!cb2.isSelected()){
+            } else if (!cb2.isSelected()) {
                 JOptionPane.showMessageDialog(null, "Please accept our Terms & Condition.");
-            }else if(phone.length()!=10){
-JOptionPane.showMessageDialog(null,"Phone Number Should be of 10 Digit.");
-cards.next(cardPanel);
+            } else if (phone.length() != 10) {
+                JOptionPane.showMessageDialog(null, "Phone Number Should be of 10 Digit.");
+                cards.next(cardPanel);
+                // }else if(!DateChecker.Checking(dob1)){
+                // JOptionPane.showMessageDialog(null, "Not Eligible.");
             } else {
                 try {
                     // JDBC connection
@@ -307,14 +355,13 @@ cards.next(cardPanel);
                     preparedStatement.setString(9, accNumber);
                     preparedStatement.setString(10, pin);
 
-                    // Paramters for protb2 
+                    // Paramters for protb2
                     mainSt.setString(1, fullName);
                     mainSt.setString(2, phone);
                     mainSt.setString(3, email);
                     mainSt.setString(4, dob1);
                     mainSt.setString(5, accNumber);
                     mainSt.setString(6, pin);
-        
 
                     // Execute the query
                     preparedStatement.executeUpdate();
@@ -331,7 +378,8 @@ cards.next(cardPanel);
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     // Handle database errors
-                    JOptionPane.showMessageDialog(null, "Error while saving data to the database. \nOr\nAccount number already Exits");
+                    JOptionPane.showMessageDialog(null,
+                            "Error while saving data to the database. \nOr\nAccount number already Exits");
                 }
             }
         });
