@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "Jar Files/**/*.jar"
+        "Jar Files/**/*.jar",
+        "/Users/devanshtyagi/Documents/work/Coding Stuff/EasyXLS.jar"
     ]
 }
